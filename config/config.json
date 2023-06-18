@@ -1,0 +1,27 @@
+{
+  "db_amount_trials": "6",
+
+  "db_threshold_open_valve_small": "70",
+
+  "db_threshold_open_valve_big": "70",
+
+  "db_reward_duration_small": "90",
+
+  "db_reward_duration_big": "150",
+
+  "db_sound_option": "1",
+
+  "db_world_option": "1",
+
+  "db_distance_to_run": "200",
+
+  "db_leakport_room_break": "2",
+
+  "db_black_room_break": "2",
+
+  "db_sound_deviation_in_range": "16",
+
+  "db_target_speed": "31",
+
+  "db_sound_deviation_out_range": "16"
+}

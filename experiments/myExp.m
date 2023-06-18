@@ -23,6 +23,7 @@ function vr = initializationCodeFun(vr)
     vr = initParameters(vr);
     vr = isExistsDefaultConfig(vr);
     vr = miniGUI(vr); % show the GUI for chosing the experiment preferences
+   
     if vr.isSessionRun == 1    
         vr = createLogFiles(vr); % for logging all files
         %save config in the session directory
@@ -38,6 +39,7 @@ function vr = initializationCodeFun(vr)
         vr = timerInit(vr); % start the timers for changing rooms
     
         vr = DAQInit(vr); % data acquisition system
+        vr.position(2)
     end
 end
 
@@ -50,21 +52,19 @@ function vr = runtimeCodeFun(vr)
     %choose the sound policy
     switch vr.soundProfile
         case 1
-            vr = soundInRangeA(vr, vr.targetSpeed, vr.allowedDeviation,1600);
+            desiredFreq = 3000;
+            vr = soundInRangeA(vr, vr.targetSpeed, vr.allowedDeviation, desiredFreq);
         case 2
-            vr = soundEqualB(vr, vr.targetSpeed, vr.allowedDeviation, vr.DeviationBetweenSteps, 1000);
+            desiredFreq = 3000;
+            vr = soundEqualB(vr, vr.targetSpeed, vr.allowedDeviation, vr.DeviationBetweenSteps, desiredFreq);
         case 3
-            vr = soundDiffC(vr, vr.targetSpeed, vr.allowedDeviation,vr.DeviationBetweenSteps,2000);
+            desiredFreq = 3000;
+            vr = soundDiffC(vr, vr.targetSpeed, vr.allowedDeviation,vr.DeviationBetweenSteps,desiredFreq);
         otherwise
             disp('ERROR selecting sound profile')
     end
     
-    % count how much time it was on the target speed
-%     if((vr.targetSpeed  <= vr.velocity(2) + vr.allowedDeviation) && ...
-%             (vr.targetSpeed  >= vr.velocity(2) - vr.allowedDeviation) && (vr.position(2)<vr.endOftheRoad)))
-%         vr.timeOfRanningInRange = vr.timeOfRanningInRange+vr.ai.NotifyWhenDataAvailableExceeds;
-%     end
-    
+    vr.position(2)
     %checking position for reward
     if (vr.position(2)>=vr.endOftheRoad)
         vr = endOfTraceProcedure(vr);

@@ -6,7 +6,7 @@ function vr = initParameters(vr)
     vr.stripesWorldPercentage = 0.5; 
     vr.counter = 0;
     vr.velocityDataFile = 'velocity.dat';
-    vr.ABDataFile = 'A-B_record.dat';
+    vr.ABDataFile = 'A-B_leakport_record.dat';
     vr.RewardDataFile = 'Reward.dat';
     vr.configDataFile = 'config.json';
     %total time ran in range in a single trial (excluding reward room and
@@ -19,6 +19,10 @@ function vr = initParameters(vr)
     %the start of the reward room
     vr.endOftheRoad = 220;
 
+    vr.wheelRadius = 9.525; % cm
+    vr.wheelPerimeter = 2*pi*vr.wheelRadius;
+    vr.oneRoundOfWheel = 118; % in virmen's units
+    vr.meterTovirmenUnits = vr.oneRoundOfWheel /vr.wheelPerimeter;
     %flag so it will not give reward more than once
     vr.isRewardGiven = 0;
     %threshold for reward

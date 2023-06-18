@@ -7,7 +7,8 @@ topLeft = 660;
 paddingLeft = 70;
 paddingLeftForRightCol = 250;
 heightLine = 20;
-VerticalGap = 20;   
+VerticalGap = 20;
+lineWidth = 150;
 % Read the JSON file
 jsonStr = fileread(vr.configToLoadOnGui);
 
@@ -26,12 +27,12 @@ end
    
     %%%%%%%%%%%%%%%%%%%%
     % Create a cell array of options for the dropdown list
-    dropdownSoundOptions = {'contenious sound', 'adjustable sound(same in both directions)', 'adjustable sound(asymetric in both directions)'};
+    dropdownSoundOptions = {'Preferred speed', 'Gradual symmetrical tones', 'Gradual asymmetrical tones'};
     dropdownWorldOptions = {'Stripes','World 2', 'Checkers'};
     % Create a figure window and set its size and position
     fig = figure('Position', [550, 250, 500, 700]);
     % Set the CloseRequestFcn callback function
-    set(fig, 'CloseRequestFcn', @closeFigureCallback);
+    set(fig, 'CloseRequestFcn', @closeFigureCallback,'Name', 'Session Settings','NumberTitle', 'off');
     % Close Request Callback function
     function closeFigureCallback(~, ~)
         % Perform the desired action when the figure is closed
@@ -46,9 +47,9 @@ end
     end
     
     %amount of trials in a session
-    uicontrol('Style', 'text', 'String', 'Amount of trials:', 'Position', [paddingLeft, topLeft, 150, heightLine]);
-    sliderAmountTrials = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-1*VerticalGap, 150, heightLine], 'Min', 0, 'Max', 500, 'Value', str2double(dict('db_amount_trials')), 'SliderStep', [0.002 0.1], 'Callback', @sliderAmountTrialsCallback);
-    sliderAmountTrialsText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-2*VerticalGap, 150, heightLine], 'String', ['Slider Value: ', dict('db_amount_trials')]);
+    uicontrol('Style', 'text', 'String', 'Number of trials:', 'Position', [paddingLeft, topLeft, lineWidth, heightLine]);
+    sliderAmountTrials = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-1*VerticalGap, lineWidth, heightLine], 'Min', 0, 'Max', 500, 'Value', str2double(dict('db_amount_trials')), 'SliderStep', [0.002 0.1], 'Callback', @sliderAmountTrialsCallback);
+    sliderAmountTrialsText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-2*VerticalGap, lineWidth, heightLine], 'String', ['Slider Value: ', dict('db_amount_trials')]);
 
     function sliderAmountTrialsCallback(source, event)
        selectedSliderAmountTrials = round(get(sliderAmountTrials, 'Value'));
@@ -57,9 +58,9 @@ end
     end
     
     %percentage threshold to open leakport small reward
-    uicontrol('Style', 'text', 'String', 'Threshold for leakport small:', 'Position', [paddingLeft, topLeft-3*VerticalGap, 150, heightLine]);
-    sliderPercentageThresholdSmall = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-4*VerticalGap, 150, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_threshold_open_valve_small')), 'SliderStep', [0.01 0.1], 'Callback', @sliderPercentageThresholdSmallCallback);
-    sliderPercentageThresholdSmallText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-5*VerticalGap, 150, heightLine], 'String', ['Slider Value: ', dict('db_threshold_open_valve_small')]);
+    uicontrol('Style', 'text', 'String', '% correct for small reward:', 'Position', [paddingLeft, topLeft-3*VerticalGap, lineWidth, heightLine]);
+    sliderPercentageThresholdSmall = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-4*VerticalGap, lineWidth, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_threshold_open_valve_small')), 'SliderStep', [0.01 0.1], 'Callback', @sliderPercentageThresholdSmallCallback);
+    sliderPercentageThresholdSmallText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-5*VerticalGap, lineWidth, heightLine], 'String', ['Slider Value: ', dict('db_threshold_open_valve_small')]);
    
     function sliderPercentageThresholdSmallCallback(source, event)
        selectedSliderPercentageThresholdSmall = round(get(sliderPercentageThresholdSmall, 'Value'));
@@ -68,9 +69,9 @@ end
     end
     
     %percentage threshold to open leakport big reward
-    uicontrol('Style', 'text', 'String', 'Threshold for leakport big:', 'Position', [paddingLeftForRightCol, topLeft-3*VerticalGap, 150, heightLine]);
-    sliderPercentageThresholdBig = uicontrol('Style', 'slider', 'Position', [paddingLeftForRightCol, topLeft-4*VerticalGap, 150, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_threshold_open_valve_big')), 'SliderStep', [0.01 0.1], 'Callback', @sliderPercentageThresholdBigCallback);
-    sliderPercentageThresholdBigText = uicontrol('Style', 'text', 'Position', [paddingLeftForRightCol, topLeft-5*VerticalGap, 150, heightLine], 'String', ['Slider Value: ', dict('db_threshold_open_valve_big')]);
+    uicontrol('Style', 'text', 'String', '% correct for large reward:', 'Position', [paddingLeftForRightCol, topLeft-3*VerticalGap, lineWidth, heightLine]);
+    sliderPercentageThresholdBig = uicontrol('Style', 'slider', 'Position', [paddingLeftForRightCol, topLeft-4*VerticalGap, lineWidth, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_threshold_open_valve_big')), 'SliderStep', [0.01 0.1], 'Callback', @sliderPercentageThresholdBigCallback);
+    sliderPercentageThresholdBigText = uicontrol('Style', 'text', 'Position', [paddingLeftForRightCol, topLeft-5*VerticalGap, lineWidth, heightLine], 'String', ['Slider Value: ', dict('db_threshold_open_valve_big')]);
    
     function sliderPercentageThresholdBigCallback(source, event)
        selectedSliderPercentageThresholdBig = round(get(sliderPercentageThresholdBig, 'Value'));
@@ -81,10 +82,12 @@ end
     
     
     %how long to open the valve Small
-    uicontrol('Style', 'text', 'String', 'reward duration Small (ms):', 'Position', [paddingLeft, topLeft-6*VerticalGap, 150, heightLine]);    
+    uicontrol('Style', 'text', 'String', 'Valve opening time (ms)', 'Position', [paddingLeft, topLeft-6*VerticalGap, lineWidth, heightLine]); 
+        uicontrol('Style', 'text', 'String', 'small reward:', 'Position', [paddingLeft, topLeft-6.7*VerticalGap, lineWidth, heightLine]);    
+
     % Create a slider control for leakport break
-    sliderValveDurationSmall = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-7*VerticalGap, 150, heightLine], 'Min', 0, 'Max', 1000, 'Value', str2double(dict('db_reward_duration_small')), 'SliderStep', [0.01 0.1], 'Callback', @sliderValveDurationSmallCallback);
-    sliderValveDurationSmallText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-8*VerticalGap, 150, heightLine], 'String', ['Slider Value: ', dict('db_reward_duration_small')]);
+    sliderValveDurationSmall = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-7.5*VerticalGap, lineWidth, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_reward_duration_small')), 'SliderStep', [0.01 0.1], 'Callback', @sliderValveDurationSmallCallback);
+    sliderValveDurationSmallText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-8.5*VerticalGap, lineWidth, heightLine], 'String', ['Slider Value: ', dict('db_reward_duration_small')]);
 
     function sliderValveDurationSmallCallback(source, event)
        selectedSliderLeakportSmallValue = round(get(sliderValveDurationSmall, 'Value'));
@@ -93,10 +96,12 @@ end
     end
     
     %how long to open the valve Big
-    uicontrol('Style', 'text', 'String', 'reward duration Big (ms):', 'Position', [paddingLeftForRightCol, topLeft-6*VerticalGap, 150, heightLine]);    
+    uicontrol('Style', 'text', 'String', 'Valve opening time (ms)', 'Position', [paddingLeftForRightCol, topLeft-6*VerticalGap, lineWidth, heightLine]);    
+    uicontrol('Style', 'text', 'String', 'large reward:', 'Position', [paddingLeftForRightCol, topLeft-6.7*VerticalGap, lineWidth, heightLine]);    
+
     % Create a slider control for leakport break
-    sliderValveDurationBig = uicontrol('Style', 'slider', 'Position', [paddingLeftForRightCol, topLeft-7*VerticalGap, 150, heightLine], 'Min', 0, 'Max', 1000, 'Value', str2double(dict('db_reward_duration_big')), 'SliderStep', [0.01 0.1], 'Callback', @sliderValveDurationBigCallback);
-    sliderValveDurationBigText = uicontrol('Style', 'text', 'Position', [paddingLeftForRightCol, topLeft-8*VerticalGap, 150, heightLine], 'String', ['Slider Value: ', dict('db_reward_duration_big')]);
+    sliderValveDurationBig = uicontrol('Style', 'slider', 'Position', [paddingLeftForRightCol, topLeft-7.5*VerticalGap, lineWidth, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_reward_duration_big')), 'SliderStep', [0.01 0.1], 'Callback', @sliderValveDurationBigCallback);
+    sliderValveDurationBigText = uicontrol('Style', 'text', 'Position', [paddingLeftForRightCol, topLeft-8.5*VerticalGap, lineWidth, heightLine], 'String', ['Slider Value: ', dict('db_reward_duration_big')]);
 
     function sliderValveDurationBigCallback(source, event)
        selectedSliderLeakportBigValue = round(get(sliderValveDurationBig, 'Value'));
@@ -104,36 +109,36 @@ end
        set(sliderValveDurationBigText, 'String', sprintf('Slider Value: %d', selectedSliderLeakportBigValue));
     end
     
+ 
+
+    %choose sound - opens dropdown options list to choose sound from
+    uicontrol('Style', 'text', 'String', 'Auditory feedback paradigm:', 'Position', [paddingLeft, topLeft-9.5*VerticalGap, lineWidth, heightLine]);
+    dropdownSound = uicontrol('Style', 'popupmenu', 'String', dropdownSoundOptions, 'Position', [paddingLeft, topLeft-10.5*VerticalGap, lineWidth, heightLine]);
+    % Set the default choice
+    defaultChoiceIndex = str2double(dict('db_sound_option'));  % Set the index of the desired default choice
+    set(dropdownSound, 'Value', defaultChoiceIndex);
+
     %Distance to run
-    uicontrol('Style', 'text', 'String', 'Distance to run:', 'Position', [paddingLeftForRightCol, topLeft-9*VerticalGap, 150, heightLine]);
-    sliderDistanceToRun = uicontrol('Style', 'slider', 'Position', [paddingLeftForRightCol, topLeft-10*VerticalGap, 150, heightLine], 'Min', 0, 'Max', 600, 'Value', str2double(dict('db_distance_to_run')), 'SliderStep', [0.002 0.1], 'Callback', @sliderDistanceToRunCallback);
-    sliderDistanceToRunText = uicontrol('Style', 'text', 'Position', [paddingLeftForRightCol, topLeft-11*VerticalGap, 150, heightLine], 'String', ['Slider Value: ', dict('db_distance_to_run')]);
+    uicontrol('Style', 'text', 'String', 'Track length (cm):', 'Position', [paddingLeftForRightCol, topLeft-9.5*VerticalGap, lineWidth, heightLine]);
+    sliderDistanceToRun = uicontrol('Style', 'slider', 'Position', [paddingLeftForRightCol, topLeft-10.5*VerticalGap, lineWidth, heightLine], 'Min', 0, 'Max', 600, 'Value', str2double(dict('db_distance_to_run')), 'SliderStep', [0.002 0.1], 'Callback', @sliderDistanceToRunCallback);
+    sliderDistanceToRunText = uicontrol('Style', 'text', 'Position', [paddingLeftForRightCol, topLeft-11.5*VerticalGap, lineWidth, heightLine], 'String', ['Slider Value: ', dict('db_distance_to_run')]);
    
     function sliderDistanceToRunCallback(source, event)
        selectedSliderDistanceToRunText = round(get(sliderDistanceToRun, 'Value'));
        %changes in gui
        set(sliderDistanceToRunText, 'String', sprintf('Slider Value: %d', selectedSliderDistanceToRunText));
     end
-
-    %choose sound - opens dropdown options list to choose sound from
-    uicontrol('Style', 'text', 'String', 'Choose a sound option:', 'Position', [paddingLeft, topLeft-9*VerticalGap, 150, heightLine]);
-    dropdownSound = uicontrol('Style', 'popupmenu', 'String', dropdownSoundOptions, 'Position', [paddingLeft, topLeft-10*VerticalGap, 150, heightLine]);
-    % Set the default choice
-    defaultChoiceIndex = str2double(dict('db_sound_option'));  % Set the index of the desired default choice
-    set(dropdownSound, 'Value', defaultChoiceIndex);
-
-
     %choose world
-    uicontrol('Style', 'text', 'String', 'world to be the big reward:', 'Position', [paddingLeft, topLeft-11.5*VerticalGap, 150, heightLine]);
-    dropdownWorld = uicontrol('Style', 'popupmenu', 'String', dropdownWorldOptions, 'Position', [paddingLeft, topLeft-12.5*VerticalGap, 150, heightLine]);
+    uicontrol('Style', 'text', 'String', 'World of large reward:', 'Position', [paddingLeft, topLeft-12*VerticalGap, lineWidth, heightLine]);
+    dropdownWorld = uicontrol('Style', 'popupmenu', 'String', dropdownWorldOptions, 'Position', [paddingLeft, topLeft-12.8*VerticalGap, lineWidth, heightLine]);
     % Set the default choice
     defaultChoiceIndexWorld = str2double(dict('db_world_option'));  % Set the index of the desired default choice
     set(dropdownWorld, 'Value', defaultChoiceIndexWorld);
     %how long in leak port room
-    uicontrol('Style', 'text', 'String', 'leak port break:', 'Position', [paddingLeft, topLeft-14*VerticalGap, 150, heightLine]);    
+    uicontrol('Style', 'text', 'String', 'Reward room duration (s):', 'Position', [paddingLeft, topLeft-14*VerticalGap, lineWidth, heightLine]);    
     % Create a slider control for leakport break
-    sliderLeakport = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-15*VerticalGap, 150, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_leakport_room_break')), 'SliderStep', [0.01 0.1], 'Callback', @sliderLeakportCallback);
-    sliderValueLeakportText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-16*VerticalGap, 150, heightLine], 'String', ['Slider Value: ', dict('db_leakport_room_break')]);
+    sliderLeakport = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-15*VerticalGap, lineWidth, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_leakport_room_break')), 'SliderStep', [0.01 0.1], 'Callback', @sliderLeakportCallback);
+    sliderValueLeakportText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-16*VerticalGap, lineWidth, heightLine], 'String', ['Slider Value: ', dict('db_leakport_room_break')]);
 
     function sliderLeakportCallback(source, event)
        selectedSliderLeakportValue = round(get(sliderLeakport, 'Value'));
@@ -142,9 +147,9 @@ end
     end
  
     %create a slider control for black room break
-    uicontrol('Style', 'text', 'String', 'black room break:', 'Position', [paddingLeft, topLeft-17*VerticalGap, 150, heightLine]);
-    sliderBlackroom = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-18*VerticalGap, 150, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_black_room_break')), 'SliderStep', [0.01 0.1], 'Callback', @sliderBlackRoomCallback);
-    sliderValueBlackRoomText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-19*VerticalGap, 150, heightLine], 'String', ['Slider Value: ', dict('db_black_room_break')]);
+    uicontrol('Style', 'text', 'String', 'Inter trial interval (s)', 'Position', [paddingLeft, topLeft-17*VerticalGap, lineWidth, heightLine]);
+    sliderBlackroom = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-18*VerticalGap, lineWidth, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_black_room_break')), 'SliderStep', [0.01 0.1], 'Callback', @sliderBlackRoomCallback);
+    sliderValueBlackRoomText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-19*VerticalGap, lineWidth, heightLine], 'String', ['Slider Value: ', dict('db_black_room_break')]);
    
     function sliderBlackRoomCallback(source, event)
        selectedSliderBlackRoomValue = round(get(sliderBlackroom, 'Value'));
@@ -152,12 +157,18 @@ end
        set(sliderValueBlackRoomText, 'String', sprintf('Slider Value: %d', selectedSliderBlackRoomValue));
     end
     
+    %target speed
+    %create a slider control for target speed
+    uicontrol('Style', 'text', 'String', 'Preferred speed (cm/s):', 'Position', [paddingLeft, topLeft-20*VerticalGap, lineWidth, heightLine]);
+    sliderTargetSpeed = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-21*VerticalGap, lineWidth, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_target_speed')), 'SliderStep', [0.01 0.1], 'Callback', @sliderTargetSpeedCallback);
+    sliderValueTargetSpeedText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-22*VerticalGap, lineWidth, heightLine], 'String', ['Slider Value: ', dict('db_target_speed')]);
+   
  
     %deviation
      %create a slider control for deviation from target sound,it is  the stair of the good range
-    uicontrol('Style', 'text', 'String', 'deviation from target sound:', 'Position', [paddingLeft, topLeft-20*VerticalGap, 150, heightLine]);
-    sliderDeviation = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-21*VerticalGap, 150, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_sound_deviation_in_range')), 'SliderStep', [0.01 0.1], 'Callback', @sliderDeviationCallback);
-    sliderValueDeviationText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-22*VerticalGap, 150, heightLine], 'String', ['Slider Value: ', dict('db_sound_deviation_in_range')]);
+    uicontrol('Style', 'text', 'String', 'Preferred speed deviation (cm/s):', 'Position', [paddingLeft-10, topLeft-23*VerticalGap, lineWidth+30, heightLine]);
+    sliderDeviation = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-24*VerticalGap, lineWidth, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_sound_deviation_in_range')), 'SliderStep', [0.01 0.1], 'Callback', @sliderDeviationCallback);
+    sliderValueDeviationText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-25*VerticalGap, lineWidth, heightLine], 'String', ['Slider Value: ', dict('db_sound_deviation_in_range')]);
    
     function sliderDeviationCallback(source, event)
        selectedSliderDevValue = round(get(sliderDeviation, 'Value'));
@@ -166,12 +177,6 @@ end
     end
  
 
-    %target speed
-     %create a slider control for target speed
-    uicontrol('Style', 'text', 'String', 'target speed:', 'Position', [paddingLeft, topLeft-23*VerticalGap, 150, heightLine]);
-    sliderTargetSpeed = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-24*VerticalGap, 150, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_target_speed')), 'SliderStep', [0.01 0.1], 'Callback', @sliderTargetSpeedCallback);
-    sliderValueTargetSpeedText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-25*VerticalGap, 150, heightLine], 'String', ['Slider Value: ', dict('db_target_speed')]);
-   
     function sliderTargetSpeedCallback(source, event)
        selectedSliderTargetSpeedValue = round(get(sliderTargetSpeed, 'Value'));
        %changes in gui
@@ -179,9 +184,9 @@ end
     end
  
     %stair deviation of sound out of range
-    uicontrol('Style', 'text', 'String', 'deviation sound out of range:', 'Position', [paddingLeft, topLeft-26*VerticalGap, 150, heightLine]);
-    sliderDeviationOutOfRange = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-27*VerticalGap, 150, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_sound_deviation_out_range')), 'SliderStep', [0.01 0.1], 'Callback', @sliderDeviationOutOfRangeCallback);
-    sliderValueDeviationOutOfRangeText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-28*VerticalGap, 150, heightLine], 'String', ['Slider Value: ', dict('db_sound_deviation_out_range')]);
+    uicontrol('Style', 'text', 'String', 'Speed step size:', 'Position', [paddingLeft, topLeft-26*VerticalGap, lineWidth, heightLine]);
+    sliderDeviationOutOfRange = uicontrol('Style', 'slider', 'Position', [paddingLeft, topLeft-27*VerticalGap, lineWidth, heightLine], 'Min', 0, 'Max', 100, 'Value', str2double(dict('db_sound_deviation_out_range')), 'SliderStep', [0.01 0.1], 'Callback', @sliderDeviationOutOfRangeCallback);
+    sliderValueDeviationOutOfRangeText = uicontrol('Style', 'text', 'Position', [paddingLeft, topLeft-28*VerticalGap, lineWidth, heightLine], 'String', ['Slider Value: ', dict('db_sound_deviation_out_range')]);
    
     function sliderDeviationOutOfRangeCallback(source, event)
        selectedSliderDevOutOfRangeValue = round(get(sliderDeviationOutOfRange, 'Value'));
@@ -192,51 +197,54 @@ end
 
     % Create a button to display the selected option from the dropdown list
     paddingBottom = 50;
-    button = uicontrol('Style', 'pushbutton', 'String', 'Select', 'Position', [187, paddingBottom, 100, heightLine*1.5], 'Callback', @buttonCallback);
+    buttonWidth = 100;
+    paddingLeft = 187;
+    button = uicontrol('Style', 'pushbutton', 'String', 'Select', 'Position', [paddingLeft, paddingBottom, buttonWidth, heightLine*1.5], 'Callback', @buttonCallback);
 
    
     % Define a callback function for the button
     function buttonCallback(source, event)
         % Get the selected option from the dropdown list
         %sound
-        selectedSoundOptionIndex = get(dropdownSound, 'Value');
+        selectedSoundOptionIndex = round(get(dropdownSound, 'Value'));
         vr.soundProfile = selectedSoundOptionIndex;
         
         %world to be the big reward, the other one is th small reward by default
-        selectedWorldOptionIndex = get(dropdownWorld,'Value');
+        selectedWorldOptionIndex = round(get(dropdownWorld,'Value'));
+      
         vr.chosenWorldToBeBigReward  = selectedWorldOptionIndex;
 
         %leakport break
-        vr.leakportBreak = get(sliderLeakport, 'Value');
+        vr.leakportBreak = round(get(sliderLeakport, 'Value'));
         
         %Black Room break;
-        vr.blackRoomBreak = get(sliderBlackroom, 'Value');
+        vr.blackRoomBreak = round(get(sliderBlackroom, 'Value'));
         
         %deviation allowed
-        vr.allowedDeviation = get(sliderDeviation, 'Value');
+        vr.allowedDeviation = round(get(sliderDeviation, 'Value'));
         
         %deviation out of range for sound B and C
-        vr.DeviationBetweenSteps = get(sliderDeviationOutOfRange, 'Value');
+        vr.DeviationBetweenSteps = round(get(sliderDeviationOutOfRange, 'Value'));
         
         %target speed
-        vr.targetSpeed = get(sliderTargetSpeed, 'Value');
+        vr.targetSpeed = round(get(sliderTargetSpeed, 'Value'));
         
         %reward duration small
-        vr.rewardDurationSmall = get(sliderValveDurationSmall, 'Value');
+        vr.rewardDurationSmall = round(get(sliderValveDurationSmall, 'Value'));
         
         %reward duration big
-        vr.rewardDurationBig = get(sliderValveDurationBig, 'Value');
+        vr.rewardDurationBig = round(get(sliderValveDurationBig, 'Value'));
         
         %distance to run
-        vr.distanceToRun = round(get(sliderDistanceToRun, 'Value'));
+        vr.distanceToRun = round(get(sliderDistanceToRun, 'Value')*vr.meterTovirmenUnits);
         
         %Percentage threshold to open leakport Small
-        vr.percentageThresholdSmall = get(sliderPercentageThresholdSmall, 'Value');
+        vr.percentageThresholdSmall = round(get(sliderPercentageThresholdSmall, 'Value'));
         
         %Percentage threshold to open leakport Big
-        vr.percentageThresholdBig = get(sliderPercentageThresholdBig, 'Value');
+        vr.percentageThresholdBig = round(get(sliderPercentageThresholdBig, 'Value'));
         %amount of trials
-        vr.amountTrials = get(sliderAmountTrials, 'Value');
+        vr.amountTrials = round(get(sliderAmountTrials, 'Value'));
         %we want to continue to run
         vr.isSessionRun = true;
         %close(fig);

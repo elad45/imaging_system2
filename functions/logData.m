@@ -1,6 +1,7 @@
 function vr = logData(vr, Acol, Bcol, lickPortCol, velocity, timestampCol)
     %log velocity
 %     timestamp = clock;
+    a = [timestampCol(1) velocity(2) round(lickPortCol(1))]
     fwrite(vr.fid1, [timestampCol(1) velocity(2) round(lickPortCol(1))],'double');
 
     %log a,b,lickport

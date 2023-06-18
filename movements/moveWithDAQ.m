@@ -24,8 +24,8 @@ function velocity = moveWithDAQ(vr)
     speed = numOfSlits*linearSpeedPerSlit; % cm/s 
     scaling = 1;
     
-    %velocity = [0 speed*scaling*direction 0 0];
-     velocity = [0 40 0 0];
+    velocity = [0 speed*scaling*direction 0 0];
+    % velocity = [0 40 0 0];
     %calculate distance- 1024 slots / 360 deg = 2.844 slots per deg
     slitsPerDeg = 2.844;
     rotationAngle = numOfSlits*slitsPerDeg;

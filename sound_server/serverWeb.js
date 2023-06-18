@@ -115,12 +115,62 @@ app.get('/playSound3400', async (req, res) => {
     res.sendStatus(200);
 });
 
-app.get('/playSound5000', async (req, res) => {
+app.get('/playSound3600', async (req, res) => {
     await page.evaluate(() => {
         playSound(13);
     });
     res.sendStatus(200);
 });
+
+app.get('/playSound3800', async (req, res) => {
+    await page.evaluate(() => {
+        playSound(14);
+    });
+    res.sendStatus(200);
+});
+
+app.get('/playSound4000', async (req, res) => {
+    await page.evaluate(() => {
+        playSound(15);
+    });
+    res.sendStatus(200);
+});
+
+app.get('/playSound4200', async (req, res) => {
+    await page.evaluate(() => {
+        playSound(16);
+    });
+    res.sendStatus(200);
+});
+
+app.get('/playSound4400', async (req, res) => {
+    await page.evaluate(() => {
+        playSound(17);
+    });
+    res.sendStatus(200);
+});
+
+app.get('/playSound4600', async (req, res) => {
+    await page.evaluate(() => {
+        playSound(18);
+    });
+    res.sendStatus(200);
+});
+
+app.get('/playSound4800', async (req, res) => {
+    await page.evaluate(() => {
+        playSound(19);
+    });
+    res.sendStatus(200);
+});
+
+app.get('/playSound5000', async (req, res) => {
+    await page.evaluate(() => {
+        playSound(20);
+    });
+    res.sendStatus(200);
+});
+
 
 app.get('/stopSounds', async (req, res) => {
     await page.evaluate(() => {
@@ -129,6 +179,6 @@ app.get('/stopSounds', async (req, res) => {
     res.sendStatus(200);
 });
 
-app.listen(3000, () => {
+app.listen(3200, () => {
     console.log('Server is running on port 3000');
 });

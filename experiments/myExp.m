@@ -18,19 +18,23 @@ function vr = initializationCodeFun(vr)
     global timeUntilCoolOffRoom;
     timeUntilCoolOffRoom = 0;
     %start the sound server
-    command = 'start /B cmd /C node "C:\Users\user\Desktop\imaging_system\ViRMEn 2016-02-12\sound_server\serverWeb.js"';
+%     command = 'start /B cmd /C node "C:\Users\user\Desktop\imaging_system\ViRMEn 2016-02-12\sound_server\serverWeb.js"';
+%     system(command);
+    %open server for sound
+    currentDir = pwd;
+    command = sprintf('start /B cmd /C node "%s\\ViRMEn 2016-02-12\\sound_server\\serverWeb.js"', currentDir);
     system(command);
     vr = initParameters(vr);
     vr = isExistsDefaultConfig(vr);
     vr = miniGUI(vr); % show the GUI for chosing the experiment preferences
    
-    if vr.isSessionRun == 1    
+    if vr.isSessionRun == true    
         vr = createLogFiles(vr); % for logging all files
         %save config in the session directory
         vr = saveConfigFile(vr,vr.configFileInSession); 
         %save config in default config as well
         copyfile(vr.configFileInSession,vr.configToLoadOnGui);
-        %initial position and set it
+        %calculating & set initial position
         vr.initPosition = vr.endOftheRoad - vr.distanceToRun;
         vr.position(2) = vr.initPosition;
         
@@ -39,7 +43,6 @@ function vr = initializationCodeFun(vr)
         vr = timerInit(vr); % start the timers for changing rooms
     
         vr = DAQInit(vr); % data acquisition system
-        vr.position(2)
     end
 end
 
@@ -64,7 +67,6 @@ function vr = runtimeCodeFun(vr)
             disp('ERROR selecting sound profile')
     end
     
-    vr.position(2)
     %checking position for reward
     if (vr.position(2)>=vr.endOftheRoad)
         vr = endOfTraceProcedure(vr);
@@ -77,7 +79,9 @@ function vr = runtimeCodeFun(vr)
             vr.timeOfRanningInRange = vr.timeOfRanningInRange+vr.ai.NotifyWhenDataAvailableExceeds;
         end
     end
-    
+    %preparing for moveWithDAQ - virmen engine called moveWithDAQ by
+    %itself. (page 22)
+    vr = calculateAvgSpeed(vr);
 end
 
 % --- TERMINATION code: executes after the ViRMEn engine stops.

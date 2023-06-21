@@ -1,7 +1,8 @@
 function vr = createLogFiles(vr)
     % open or create binary file for writing and store its file ID in vr
-    timestampForFileName = datestr(clock);    
-    vr.sessionFolder = fullfile('C:\Users\user\Desktop\imaging_system\ViRMEn 2016-02-12\log', erase(timestampForFileName,":"));
+    timestampForFileName = datestr(clock);
+    logPath = strcat(pwd,'\ViRMEn 2016-02-12\log');
+    vr.sessionFolder = fullfile(logPath, erase(timestampForFileName,":"));
     mkdir(vr.sessionFolder);
     %vr.nameOfLogFileVel = "C:\Users\user\Desktop\imaging_system\log\" + erase(timestampForFileName+"velocity.dat",":");
     vr.nameOfLogFileVel = fullfile(vr.sessionFolder,vr.velocityDataFile);

@@ -30,6 +30,12 @@ function vr = initParameters(vr)
     %duration to open the valve for based on big\small reward
     vr.currentRewardDuration = 0;
     %default menu config file
-    vr.configToLoadOnGui = 'C:\Users\user\Desktop\imaging_system\ViRMEn 2016-02-12\config\config.json';
+    vr.configToLoadOnGui = strcat(pwd,'\ViRMEn 2016-02-12\config\config.json');
+    %saving the last 30 ms for velocity
+    vr.beforePrevious10msVelocity = 0;
+    vr.previous10msVelocity = 0;
+    vr.current10msVelocity = 0;
+    vr.avgVelocity = (vr.beforePrevious10msVelocity + vr.previous10msVelocity + vr.current10msVelocity)/3;
+    %vr.configToLoadOnGui = 'C:\Users\user\Desktop\imaging_system\ViRMEn 2016-02-12\config\config.json';
 end
 

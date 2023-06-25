@@ -11,7 +11,6 @@ function vr = endOfTraceProcedure(vr)
         start(vr.t1);
         if((double(vr.timeOfRanningInRange)/double(vr.timeOfTotalRun) >= vr.percentageThresholdOfCurrTrial/100)&&(vr.isRewardGiven == false ))
             vr = giveReward(vr); % activate reward
-            vr = clockAlignment(vr); % aligment of the other sensors 
             vr.isRewardGiven = true;
         end
     end
@@ -31,22 +30,11 @@ function vr = endOfTraceProcedure(vr)
             if (vr.countTrials >= vr.amountTrials)
                 vr.experimentEnded = true;
             else
-%                 randomNumber = rand;
-%                 if (randomNumber < vr.stripesWorldPercentage)
-%                     vr.currentWorld = vr.stripesWorld;
-%                 else
-%                     vr.currentWorld = vr.chessWorld;
-%                 end
-%                 
-%                 % the precentage of correct running will be depended on the reward type
-%                 if (vr.currentWorld == vr.chosenWorldToBeBigReward)
-%                     vr.percentageThresholdOfCurrTrial = vr.percentageThresholdBig;
-%                 else
-%                     vr.percentageThresholdOfCurrTrial = vr.percentageThresholdSmall;
-%                 end
                 vr = randomizeWorld(vr);
                 %vr.currentWorld = vr.chosenWorld;
                 vr.position(2) = vr.initPosition;
+                vr = clockAlignment(vr); % aligment of the other sensors 
+
                 vr.isRewardGiven = false;
                 %reset timers
                 stop(vr.t1);

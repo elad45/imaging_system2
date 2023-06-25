@@ -1,6 +1,6 @@
 function vr = clockAlignment(vr)
     % Set the desired length of the column
-    columnLength = 200;
+    columnLength = 2000;
 
     % Generate random sequence lengths
     sequenceLengths = randi([10, 30], columnLength, 1);
@@ -16,8 +16,9 @@ function vr = clockAlignment(vr)
 
     % Truncate the column to the desired length
     randomColumn = randomColumn(1:columnLength);
-    
+    zero_data_analog = zeros(columnLength,1);
+
     %output the data
-    vr.ao.queueOutputData(randomColumn);
+    vr.ao.queueOutputData([zero_data_analog randomColumn]);
     startBackground(vr.ao);
 end

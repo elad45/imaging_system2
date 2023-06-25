@@ -4,7 +4,7 @@ function vr = plotData(vr)
     fid2 = fopen(vr.nameOfLogFileVel);
     fid3 = fopen(vr.nameOfLogFileReward);
     % read all data from the file into a 5-row matrix
-    velocityData = fread(fid2,[3 inf],'double');
+    velocityData = fread(fid2,[4 inf],'double');
     A_B_ChannelsData = fread(fid1,[4 inf],'double');
     rewardData = fread(fid3,[2 inf],'double');
     % close the file
@@ -17,7 +17,11 @@ function vr = plotData(vr)
     hold on;
     plot(velocityData(1,:),velocityData(2,:),'b-');
     plot(velocityData(1,:),velocityData(3,:),'r-');
+    plot(velocityData(1,:),velocityData(4,:),'y-');
     hold off;
+    xlabel('Time (s)');
+    ylabel('Speed (cm\s)');
+    legend('Velocity', 'Average Velocity', 'Lickport activation');
     title("velocityData");
     %plot(A_B_ChannelsData(1,:),A_B_ChannelsData(2,:));
     %title("A B ChannelsData");

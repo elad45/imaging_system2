@@ -28,8 +28,8 @@ function vr = calculateAvgSpeed(vr)
     %calculating the average of the last 30ms for velocity, and using it as
     %this iteration velocity - this one is passed to moveWithDAQ
     vr.avgVelocity = (vr.current10msVelocity + vr.previous10msVelocity + vr.beforePrevious10msVelocity)/3;
-    velocity = [0 vr.avgVelocity 0 0]; % log the average velocity in the last 30ms 
-    %velocity = [0 vr.current10msVelocity 0 0]; %log the average velocity in the last 10ms
+    velocityAvg = [0 vr.avgVelocity 0 0]; % log the average velocity in the last 30ms 
+    velocityCurr = [0 vr.current10msVelocity 0 0]; %log the average velocity in the last 10ms
     %replacing 3->2->1 for next iteration
     vr.previous10msVelocity = vr.current10msVelocity;
     vr.beforePrevious10msVelocity = vr.previous10msVelocity;
@@ -39,7 +39,7 @@ function vr = calculateAvgSpeed(vr)
     %slitsPerDeg = 2.844;
     %rotationAngle = numOfSlits*slitsPerDeg;
     
-    vr = logData(vr, Acol, Bcol, lickPortCol, velocity, timestampCol);
+    vr = logData(vr, Acol, Bcol, lickPortCol, velocityCurr, velocityAvg,  timestampCol);
 
 %     if (vr.position(2)>=vr.endOftheRoad) 
 %         velocity(2) = 0;

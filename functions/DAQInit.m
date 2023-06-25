@@ -12,15 +12,14 @@ function vr = DAQInit(vr)
     
     addAnalogInputChannel(vr.ai,'Dev1',[8,9,10],'Voltage');
     addAnalogOutputChannel(vr.ao,'Dev1',1,'Voltage');
-%     addDigitalChannel(vr.ao,'Dev1','Port0/Line5','OutputOnly');
+    addDigitalChannel(vr.ao,'Dev1','Port0/Line5','OutputOnly');
 
     % define the sampling rate to 1kHz and set the duration to be unlimited
     vr.ai.Rate = vr.rate;
     vr.ao.Rate = vr.rate;
             
     initialData = zeros(vr.rate,1);
-%     outputData = logical([0 0 1 0 0 0 0 0]);  % Example output data
-    vr.ao.queueOutputData(initialData);
+    vr.ao.queueOutputData([initialData, initialData]);
 
     % set the buffering window to be 8 ms long - shorter than a single ViRMEn refresh cycle
     vr.ai.NotifyWhenDataAvailableExceeds = vr.rate / 100;

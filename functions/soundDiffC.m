@@ -1,4 +1,4 @@
-nd function vr = soundDiffC(vr, requiredVelocity,allowedDeviation,DeviationBetweenSteps, desiredFreq)
+function vr = soundDiffC(vr, requiredVelocity,allowedDeviation,DeviationBetweenSteps, desiredFreq)
 %velocity1 has to be changed back to vr.velocity(2)
     scale = allowedDeviation;% was 50 in tests
     scaleOutRange = DeviationBetweenSteps;
@@ -64,11 +64,10 @@ nd function vr = soundDiffC(vr, requiredVelocity,allowedDeviation,DeviationBetwe
             disp("out of range borderL soundEqualBtest");
         end 
     end
-    
-    
-end
+   
+   
+  
 
-    
     
 
 

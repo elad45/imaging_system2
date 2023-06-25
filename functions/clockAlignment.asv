@@ -1,0 +1,13 @@
+function vr = clockAlignment(vr)
+% Set the size of the column
+    numRows = vr.ai.NotifyWhenDataAvailableExceeds; % how many ones to log
+
+    % Generate random integers between 0 and 1
+    randomIntegers = randi([0, 1], numRows, 1);
+    % Convert random integers to 0s and 1s using logical indexing
+    randomColumn = zeros(numRows, 1);
+    randomColumn(randomIntegers == 1) = 1;
+
+    vr.ao.queueOutputData(randomColumn);
+    startBackground(vr.ao);
+end

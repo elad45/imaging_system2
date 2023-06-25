@@ -1,8 +1,8 @@
-function vr = logData(vr, Acol, Bcol, lickPortCol, velocity, timestampCol)
+function vr = logData(vr, Acol, Bcol, lickPortCol, velocityCurr, velocityAvg, timestampCol)
     %log velocity
 %     timestamp = clock;
-    a = [timestampCol(1) velocity(2) round(lickPortCol(1))]
-    fwrite(vr.fid1, [timestampCol(1) velocity(2) round(lickPortCol(1))],'double');
+    a = [timestampCol(1) velocityCurr(2) round(lickPortCol(1))];
+    fwrite(vr.fid1, [timestampCol(1) velocityCurr(2) velocityAvg(2) round(lickPortCol(1))],'double');
 
     %log a,b,lickport
 %     r1 = 0:(vr.ai.NotifyWhenDataAvailableExceeds/2)-1;

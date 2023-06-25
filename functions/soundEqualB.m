@@ -3,8 +3,8 @@ function vr = soundEqualB(vr, requiredVelocity, allowedDeviationInrange, Deviati
     scale = allowedDeviationInrange; %50 in tests
     scaleOutRange = DeviationBetweenSteps;
     %return this line when finish testing
-    velocity1 = vr.velocity(2)
-     disp("this is "+vr.DeviationBetweenSteps);
+    velocity1 = vr.velocity(2);
+     %disp("this is "+vr.DeviationBetweenSteps);
     %right,left boudaries for desired speed
     borderR = requiredVelocity + scale;
     borderL = requiredVelocity - scale;

@@ -10,7 +10,8 @@ function vr = endOfTraceProcedure(vr)
     if (isequal(get(vr.t1, 'Running'), 'off'))
         start(vr.t1);
         if((double(vr.timeOfRanningInRange)/double(vr.timeOfTotalRun) >= vr.percentageThresholdOfCurrTrial/100)&&(vr.isRewardGiven == false ))
-            vr = giveReward(vr);
+            vr = giveReward(vr); % activate reward
+            vr = clockAlignment(vr); % aligment of the other sensors 
             vr.isRewardGiven = true;
         end
     end

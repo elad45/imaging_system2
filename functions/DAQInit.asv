@@ -30,7 +30,11 @@ function vr = DAQInit(vr)
         dataFromDAQ = [event.Data event.TimeStamps];
     end
 
+    initialData = zeros(vr.rate,1);
+    vr.ao.queueOutputData([initialData, initialData]);
+    vr = clockAlignment(vr,vr.rate); % aligment of the other sensors
+
     % start acquisition from the analog input object
     startBackground(vr.ai);
-    vr = clockAlignment(vr,vr.rate); % aligment of the other sensors
+    startBackground(vr.ao);
 end

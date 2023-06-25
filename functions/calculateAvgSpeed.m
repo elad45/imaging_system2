@@ -1,12 +1,7 @@
 function vr = calculateAvgSpeed(vr)
  global dataFromDAQ;
-    %if(isempty(dataFromDAQ))
-     %  velocity = [0 0 0 0];
-     %   return
-    %end
     numOfSlits = 0; % slits in the rotary encoder
     direction = runDirection(dataFromDAQ);
-%     direction = 1;
     Acol = dataFromDAQ(:,1);
     Bcol = dataFromDAQ(:,2);
     lickPortCol = dataFromDAQ(:,3);
@@ -24,7 +19,7 @@ function vr = calculateAvgSpeed(vr)
     speed = numOfSlits*linearSpeedPerSlit; % cm/s 
     scaling = 1;
     %this round velocity
-    vr.current10msVelocity = speed*scaling*direction
+    vr.current10msVelocity = speed*scaling*direction;
     %calculating the average of the last 30ms for velocity, and using it as
     %this iteration velocity - this one is passed to moveWithDAQ
     vr.avgVelocity = (vr.current10msVelocity + vr.previous10msVelocity + vr.beforePrevious10msVelocity)/3;
@@ -37,12 +32,8 @@ function vr = calculateAvgSpeed(vr)
     %velocity = [0 40 0 0];
     %calculate distance- 1024 slots / 360 deg = 2.844 slots per deg
     %slitsPerDeg = 2.844;
-    %rotationAngle = numOfSlits*slitsPerDeg;
     
     vr = logData(vr, Acol, Bcol, lickPortCol, velocityCurr, velocityAvg,  timestampCol);
 
-%     if (vr.position(2)>=vr.endOftheRoad) 
-%         velocity(2) = 0;
-%     end
 end
 

@@ -12,6 +12,4 @@ function vr = giveReward(vr)
 
     fwrite(vr.fid3, [timestampCol(1) 1],'double');
     fwrite(vr.fid3, [timestampCol(1)+vr.currentRewardDuration/1000 1],'double');
-
-%     start(vr.t3);
 end

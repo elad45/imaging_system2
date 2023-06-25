@@ -33,7 +33,8 @@ function vr = endOfTraceProcedure(vr)
                 vr = randomizeWorld(vr);
                 %vr.currentWorld = vr.chosenWorld;
                 vr.position(2) = vr.initPosition;
-                vr = clockAlignment(vr); % aligment of the other sensors 
+                scans_length = vr.rate;
+                vr = clockAlignment(vr,scans_length); % aligment for the other sensors
 
                 vr.isRewardGiven = false;
                 %reset timers

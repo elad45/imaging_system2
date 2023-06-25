@@ -43,6 +43,7 @@ function vr = initializationCodeFun(vr)
         vr = timerInit(vr); % start the timers for changing rooms
     
         vr = DAQInit(vr); % data acquisition system
+        
     end
 end
 
@@ -67,6 +68,7 @@ function vr = runtimeCodeFun(vr)
             disp('ERROR selecting sound profile')
     end
     
+
     %checking position for reward
     if (vr.position(2)>=vr.endOftheRoad)
         vr = endOfTraceProcedure(vr);

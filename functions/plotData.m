@@ -17,10 +17,10 @@ function vr = plotData(vr)
     hold on;
     plot(velocityData(1,:),velocityData(2,:),'b-');
     plot(velocityData(1,:),velocityData(3,:),'r-');
-    plot(velocityData(1,:),velocityData(4,:),'y-');
+    plot(velocityData(1,:),velocityData(4,:),'g-');
     hold off;
     xlabel('Time (s)');
-    ylabel('Speed (cm\s)');
+    ylabel('Speed (cm\\s)');
     legend('Velocity', 'Average Velocity', 'Lickport activation');
     title("velocityData");
     %plot(A_B_ChannelsData(1,:),A_B_ChannelsData(2,:));

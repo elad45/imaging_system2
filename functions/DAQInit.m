@@ -32,5 +32,5 @@ function vr = DAQInit(vr)
 
     % start acquisition from the analog input object
     startBackground(vr.ai);
-    vr = clockAlignment(vr,vr.rate); % aligment of the other sensors
+    vr = clockAlignment(vr,vr.ao.NotifyWhenScansQueuedBelow); % aligment of the other sensors
 end

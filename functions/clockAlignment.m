@@ -1,9 +1,10 @@
 function vr = clockAlignment(vr, length)
     % Set the desired length of the column
-    columnLength = 2000;
+    global dataFromDAQ;
+    timestampCol = dataFromDAQ(:,4);
 
     % Generate random sequence lengths
-    sequenceLengths = randi([10, 30], length, 1);
+    sequenceLengths = randi([10, 20], length, 1);
 
     % Create the random column
     randomColumn = zeros(length, 1);
@@ -21,4 +22,9 @@ function vr = clockAlignment(vr, length)
     %output the data
     vr.ao.queueOutputData([zero_data_analog randomColumn]);
     startBackground(vr.ao);
+    %write to log file
+    timecol = cat(1,timestampCol,zeros(length-200, 1));
+    matrix = [timecol.';randomColumn.'] ;
+    fwrite(vr.fid4, matrix,'double');
 end
+

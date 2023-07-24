@@ -8,6 +8,7 @@ function vr = initParameters(vr)
     vr.velocityDataFile = 'velocity.dat';
     vr.ABDataFile = 'A-B_leakport_record.dat';
     vr.RewardDataFile = 'Reward.dat';
+    vr.syncLog = 'sync_signal.dat';
     vr.configDataFile = 'config.json';
     %total time ran in range in a single trial (excluding reward room and
     %black room)

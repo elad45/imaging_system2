@@ -10,5 +10,6 @@ function vr = freeAlocations(vr)
     fclose(vr.fid1);
     fclose(vr.fid2);
     fclose(vr.fid3);
+    fclose(vr.fid4);
 end
 

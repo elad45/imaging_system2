@@ -9,6 +9,7 @@ function vr = initParameters(vr)
     vr.ABDataFile = 'A-B_leakport_record.dat';
     vr.RewardDataFile = 'Reward.dat';
     vr.syncLog = 'sync_signal.dat';
+    vr.TrialTimelineFile = 'TrialTimeline.dat';
     vr.configDataFile = 'config.json';
     %total time ran in range in a single trial (excluding reward room and
     %black room)
@@ -31,12 +32,15 @@ function vr = initParameters(vr)
     %duration to open the valve for based on big\small reward
     vr.currentRewardDuration = 0;
     %default menu config file
-    vr.configToLoadOnGui = strcat(pwd,'\ViRMEn 2016-02-12\config\config.json');
+    vr.configToLoadOnGui = 'C:\Users\user\Desktop\imaging_system\ViRMEn 2016-02-12\config\config.json';
     %saving the last 30 ms for velocity
     vr.beforePrevious10msVelocity = 0;
     vr.previous10msVelocity = 0;
     vr.current10msVelocity = 0;
-    vr.avgVelocity = (vr.beforePrevious10msVelocity + vr.previous10msVelocity + vr.current10msVelocity)/3;
+
+    
+    
+    vr.avgVelocity = (vr.current10msVelocity + vr.previous10msVelocity + vr.beforePrevious10msVelocity)/3;
     %vr.configToLoadOnGui = 'C:\Users\user\Desktop\imaging_system\ViRMEn 2016-02-12\config\config.json';
 end
 

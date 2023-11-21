@@ -1,5 +1,5 @@
 function vr = generateSound(vr,freq)
-url = strcat('http://localhost:3000/playSound',int2str(freq));
+url = strcat('http://127.0.0.1:3000/playSound',int2str(freq));
     try
         options = weboptions('RequestMethod', 'get');
         webread(url, options);

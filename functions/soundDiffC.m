@@ -35,7 +35,7 @@ function vr = soundDiffC(vr, requiredVelocity,allowedDeviation,DeviationBetweenS
         elseif (velocity1< borderR + 10*scaleOutRange)
             generateSound(vr, desiredFreq+2000);
         else
-            disp("out of range borderR soundEqualBtest");
+           % disp("out of range borderR soundEqualBtest");
         end    
           
     %borderL    
@@ -61,7 +61,7 @@ function vr = soundDiffC(vr, requiredVelocity,allowedDeviation,DeviationBetweenS
         elseif (velocity1> borderL - 10*scaleOutRange)
             generateSound(vr, desiredFreq-2000);
         else
-            disp("out of range borderL soundEqualBtest");
+       %     disp("out of range borderL soundEqualBtest");
         end 
     end
    

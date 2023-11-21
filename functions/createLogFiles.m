@@ -17,6 +17,9 @@ function vr = createLogFiles(vr)
     %vr.nameOfLogFileSync = "C:\Users\user\Desktop\imaging_system\log\" + erase(timestampForFileName+"sync_signal.dat",":");
     vr.nameOfLogFileSync = fullfile(vr.sessionFolder,vr.syncLog);
     vr.fid4 = fopen(vr.nameOfLogFileSync,'w');
+    
+    vr.nameOfLogFileTrials = fullfile(vr.sessionFolder,vr.TrialTimelineFile);
+    vr.fid5 = fopen(vr.nameOfLogFileTrials,'w');
     %vr.nameOfLogFileConfigTest = "C:\Users\user\Desktop\imaging_system\log\" + erase(timestampForFileName+"config.json",":");
     %it saves the config here
     vr.configFileInSession = fullfile(vr.sessionFolder,vr.configDataFile);

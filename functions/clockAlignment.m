@@ -20,11 +20,11 @@ function vr = clockAlignment(vr, length)
     zero_data_analog = zeros(length,1);
 
     %output the data
-    vr.ao.queueOutputData([zero_data_analog randomColumn]);
+    vr.ao.queueOutputData([zero_data_analog randomColumn zero_data_analog]);
     startBackground(vr.ao);
     %write to log file
-    timecol = cat(1,timestampCol,zeros(length-200, 1));
-    matrix = [timecol.';randomColumn.'] ;
+    timecol = cat(1,timestampCol,zeros(length-size(timestampCol,1), 1));
+    matrix = [timecol.';randomColumn.'];
     fwrite(vr.fid4, matrix,'double');
 end
 

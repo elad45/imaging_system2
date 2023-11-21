@@ -3,14 +3,18 @@ function vr = plotData(vr)
     fid1 = fopen(vr.nameOfLogFileA_B);
     fid2 = fopen(vr.nameOfLogFileVel);
     fid3 = fopen(vr.nameOfLogFileReward);
+    fid5 = fopen(vr.nameOfLogFileTrials);
     % read all data from the file into a 5-row matrix
     velocityData = fread(fid2,[4 inf],'double');
     A_B_ChannelsData = fread(fid1,[4 inf],'double');
     rewardData = fread(fid3,[2 inf],'double');
+    trialData = fread(fid5,[3 inf], 'double');
+    trialData = [zeros(size(trialData, 1), 1) trialData];
     % close the file
     fclose(fid1);
     fclose(fid2);
     fclose(fid3);
+    fclose(fid5);
 
     % plot the 2D position information
     figure;

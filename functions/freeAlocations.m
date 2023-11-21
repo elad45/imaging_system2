@@ -1,4 +1,5 @@
 function vr = freeAlocations(vr)
+    vr = stopSound(vr);
     delete(vr.t1);
     delete(vr.t2);
     % remove the listener
@@ -11,5 +12,10 @@ function vr = freeAlocations(vr)
     fclose(vr.fid2);
     fclose(vr.fid3);
     fclose(vr.fid4);
+    fclose(vr.fid5);
+    
+    % Command to stop the Node.js server (assuming you want to forcefully kill the process)
+    stopCommand = 'taskkill /F /IM node.exe';
+    system(stopCommand);
 end
 

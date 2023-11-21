@@ -15,20 +15,23 @@ function vr = calculateAvgSpeed(vr)
         end
     end
     % extract the speed from the encoder
-    linearSpeedPerSlit = 5.8445;
+    linearSpeedPerSlit = 5.8445/vr.factorOfSampleWindow; % 5.8 per 10 ms
     speed = numOfSlits*linearSpeedPerSlit; % cm/s 
     scaling = 1;
     %this round velocity
     vr.current10msVelocity = speed*scaling*direction;
     %calculating the average of the last 30ms for velocity, and using it as
     %this iteration velocity - this one is passed to moveWithDAQ
-    vr.avgVelocity = (vr.current10msVelocity + vr.previous10msVelocity + vr.beforePrevious10msVelocity)/3;
+    
+    vr.avgVelocity = (vr.current10msVelocity + vr.previous10msVelocity + vr.beforePrevious10msVelocity )/3;
     velocityAvg = [0 vr.avgVelocity 0 0]; % log the average velocity in the last 30ms 
     velocityCurr = [0 vr.current10msVelocity 0 0]; %log the average velocity in the last 10ms
-    %replacing 3->2->1 for next iteration
+    
+    %replacing 3->2->1 for next iteration    
     vr.previous10msVelocity = vr.current10msVelocity;
     vr.beforePrevious10msVelocity = vr.previous10msVelocity;
-
+    
+    
     %velocity = [0 40 0 0];
     %calculate distance- 1024 slots / 360 deg = 2.844 slots per deg
     %slitsPerDeg = 2.844;

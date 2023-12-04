@@ -18,31 +18,33 @@ function vr = initializationCodeFun(vr)
     global timeUntilCoolOffRoom;
     timeUntilCoolOffRoom = 0;
     %start the sound server
-%     command = 'start /B cmd /C node "C:\Users\user\Desktop\imaging_system\ViRMEn 2016-02-12\sound_server\serverWeb.js"';
-%     system(command);
-    %open server for sound
-    currentDir = pwd;
-    command = sprintf('start /B cmd /C node "%s\\ViRMEn 2016-02-12\\sound_server\\serverWeb.js"', currentDir);
+    command = 'start /B cmd /C node "C:\Users\user\Desktop\imaging_system\ViRMEn 2016-02-12\sound_server\serverWeb.js"';
     system(command);
+
+    
     vr = initParameters(vr);
     vr = isExistsDefaultConfig(vr);
     vr = miniGUI(vr); % show the GUI for chosing the experiment preferences
-   
+    vr = DAQInit(vr); % data acquisition system
+
     if vr.isSessionRun == true    
         vr = createLogFiles(vr); % for logging all files
+        
+       
         %save config in the session directory
         vr = saveConfigFile(vr,vr.configFileInSession); 
         %save config in default config as well
         copyfile(vr.configFileInSession,vr.configToLoadOnGui);
         %calculating & set initial position
-        vr.initPosition = vr.endOftheRoad - vr.distanceToRun;
+        vr.initPosition = vr.endOftheRoad - vr.distanceToRun*vr.velocityScaling;
         vr.position(2) = vr.initPosition;
         
-        vr = randomizeWorld(vr);
-          
         vr = timerInit(vr); % start the timers for changing rooms
-    
-        vr = DAQInit(vr); % data acquisition system
+        vr = randomizeWorld(vr);
+        vr = clockAlignment(vr,vr.ao.NotifyWhenScansQueuedBelow); % aligment of the other sensors
+        fwrite(vr.fid5, [0 vr.countTrials vr.currentRewardDuration],'double'); %write to file that we started the first trial
+
+        disp(['current trial number:' num2str(vr.countTrials) '\' num2str(vr.amountTrials)]); % show the current trial number
         
     end
 end
@@ -52,11 +54,10 @@ end
 
 % --- RUNTIME code: executes on every iteration of the ViRMEn engine.
 function vr = runtimeCodeFun(vr)
-    
     %choose the sound policy
     switch vr.soundProfile
         case 1
-            desiredFreq = 3000;
+            desiredFreq = 3000; %this will represent the file name that will be activated ("sound3000.wav")
             vr = soundInRangeA(vr, vr.targetSpeed, vr.allowedDeviation, desiredFreq);
         case 2
             desiredFreq = 3000;
@@ -81,16 +82,16 @@ function vr = runtimeCodeFun(vr)
             vr.timeOfRanningInRange = vr.timeOfRanningInRange+vr.ai.NotifyWhenDataAvailableExceeds;
         end
     end
-    %preparing for moveWithDAQ - virmen engine called moveWithDAQ by
-    %itself. (page 22)
+
     vr = calculateAvgSpeed(vr);
 end
 
 % --- TERMINATION code: executes after the ViRMEn engine stops.
 function vr = terminationCodeFun(vr)
     if vr.isSessionRun == true
-        vr = freeAlocations(vr);
         vr = stopSound(vr);
+        vr = freeAlocations(vr);
+        datToCSV(vr.sessionFolder);
         vr = plotData(vr);
     end
 end

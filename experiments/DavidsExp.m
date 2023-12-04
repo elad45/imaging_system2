@@ -1,4 +1,4 @@
-function code = myExp
+function code = DavidsExp
 % defaultVirmenCode   Code for the ViRMEn experiment defaultVirmenCode.
 %   code = defaultVirmenCode   Returns handles to the functions that ViRMEn
 %   executes during engine initialization, runtime and termination.
@@ -21,30 +21,32 @@ function vr = initializationCodeFun(vr)
     command = 'start /B cmd /C node "C:\Users\user\Desktop\imaging_system\ViRMEn 2016-02-12\sound_server\serverWeb.js"';
     system(command);
 
-    
+
     vr = initParameters(vr);
     vr = isExistsDefaultConfig(vr);
     vr = miniGUI(vr); % show the GUI for chosing the experiment preferences
-   
+    vr = DAQInit(vr); % data acquisition system
+
     if vr.isSessionRun == true    
         vr = createLogFiles(vr); % for logging all files
+ 
         %save config in the session directory
         vr = saveConfigFile(vr,vr.configFileInSession); 
         %save config in default config as well
         copyfile(vr.configFileInSession,vr.configToLoadOnGui);
         %calculating & set initial position
-        vr.initPosition = vr.endOftheRoad - vr.distanceToRun;
+        vr.initPosition = vr.endOftheRoad - vr.distanceToRun*vr.velocityScaling;
         vr.position(2) = vr.initPosition;
-        
-        vr.currentWorld = vr.chessWorld;
-        vr = randomizeSoundHint(vr);
         
         vr = timerInit(vr); % start the timers for changing rooms
     
-        vr = DAQInit(vr); % data acquisition system
-        
-        disp(['current trial number:' num2str(vr.countTrials) '\' num2str(vr.amountTrials)]); % show the current trial number
+        vr.currentWorld = vr.chessWorld;
+        vr = randomizeSoundHint(vr);
+        vr = clockAlignment(vr,vr.ao.NotifyWhenScansQueuedBelow); % aligment of the other sensors
 
+        fwrite(vr.fid5, [0 vr.countTrials vr.currentRewardDuration],'double'); %write to file that we started the first trial
+
+        disp(['current trial number:' num2str(vr.countTrials) '\' num2str(vr.amountTrials)]); % show the current trial number
     end
 end
 

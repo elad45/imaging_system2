@@ -7,13 +7,18 @@ function vr = freeAlocations(vr)
     % stop the DAQ session
     stop(vr.ai);
     stop(vr.ao);
+
+    release(vr.ai);
+    release(vr.ao);
+%     stop(vr.ai_timer);
     % close the files
     fclose(vr.fid1);
     fclose(vr.fid2);
     fclose(vr.fid3);
     fclose(vr.fid4);
     fclose(vr.fid5);
-    
+    fclose(vr.fid6);
+
     % Command to stop the Node.js server (assuming you want to forcefully kill the process)
     stopCommand = 'taskkill /F /IM node.exe';
     system(stopCommand);

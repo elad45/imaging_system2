@@ -9,7 +9,6 @@ function vr = endOfTraceProcedure(vr)
     % Start the timer object   
     if (isequal(get(vr.t1, 'Running'), 'off'))
         start(vr.t1);
-       fwrite(vr.fid5, [timestampCol(1) vr.countTrials],'double'); %write to file that we started another trial
 
         if((double(vr.timeOfRanningInRange)/double(vr.timeOfTotalRun) >= vr.percentageThresholdOfCurrTrial/100)&&(vr.isRewardGiven == false ))
             vr = giveReward(vr); % activate reward
@@ -37,7 +36,7 @@ function vr = endOfTraceProcedure(vr)
                 vr.position(2) = vr.initPosition;
                 scans_length = vr.ao.NotifyWhenScansQueuedBelow;
                 vr = clockAlignment(vr,scans_length); % aligment for the other sensors
-                fwrite(vr.fid5, [timestampCol(1) vr.countTrials],'double'); %write to file that we started another trial
+                fwrite(vr.fid5, [timestampCol(1) vr.countTrials vr.currentRewardDuration],'double'); %write to file that we started another trial
                 
                 vr.isRewardGiven = false;
                 %reset timers

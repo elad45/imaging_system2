@@ -1,6 +1,8 @@
 function vr = DAQInit(vr)
     global dataFromDAQ;
-    vr.rate = 20000;
+    global dataFromDAQ_FirstPrev;
+    global dataFromDAQ_SecondPrev;
+    global dataFromDAQ_Thirdprev;
     % reset DAQ in case it's still in use by a previous MATLAB program
     daqreset;
     % connect to the DAQ card dev1; store the input object handle in vr for use by ViRMEn
@@ -15,23 +17,29 @@ function vr = DAQInit(vr)
     addDigitalChannel(vr.ao,'Dev1','Port0/Line5','OutputOnly'); % random signal
     addDigitalChannel(vr.ao,'Dev1','Port0/Line7','OutputOnly'); % valve
 
+
     % define the sampling rate to 1kHz and set the duration to be unlimited
     vr.ai.Rate = vr.rate;
     vr.ao.Rate = vr.rate;
     
-    vr.factorOfSampleWindow = 4;
+
     % set the buffering window to be 8 ms long - shorter than a single ViRMEn refresh cycle
     vr.ai.NotifyWhenDataAvailableExceeds = vr.rate / (100/vr.factorOfSampleWindow);
     vr.ao.NotifyWhenScansQueuedBelow  = vr.rate/10;
+    
 
     vr.timeOfSample = vr.ai.Rate./vr.ai.NotifyWhenDataAvailableExceeds;
     vr.timePerSample = vr.ai.NotifyWhenDataAvailableExceeds./vr.ai.Rate;
     vr.lh1 = addlistener(vr.ai,'DataAvailable',@getData);
+    
     function getData(src,event)
+        dataFromDAQ_Thirdprev = dataFromDAQ_SecondPrev;
+        dataFromDAQ_SecondPrev = dataFromDAQ_FirstPrev;
+        dataFromDAQ_FirstPrev = dataFromDAQ;
         dataFromDAQ = [event.Data event.TimeStamps];
     end
 
     % start acquisition from the analog input object
     startBackground(vr.ai);
-    vr = clockAlignment(vr,vr.ao.NotifyWhenScansQueuedBelow); % aligment of the other sensors
+
 end

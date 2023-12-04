@@ -30,7 +30,7 @@ end
     dropdownSoundOptions = {'Preferred speed', 'Gradual symmetrical tones', 'Gradual asymmetrical tones'};
     dropdownWorldOptions = {'Stripes','World 2', 'Checkers'};
     % Create a figure window and set its size and position
-    fig = figure('Position', [550, 250, 500, 700]);
+    fig = figure('Position', [750, 250, 500, 700]);
     % Set the CloseRequestFcn callback function
     set(fig, 'CloseRequestFcn', @closeFigureCallback,'Name', 'Session Settings','NumberTitle', 'off');
     % Close Request Callback function
@@ -194,6 +194,17 @@ end
        set(sliderValueDeviationOutOfRangeText, 'String', sprintf('Slider Value: %d', selectedSliderDevOutOfRangeValue));
     end
 
+    % texbox to fill the name of the folder
+    textboxHandle = uicontrol('Style', 'edit', 'Position', [paddingLeftForRightCol, topLeft-12.5*VerticalGap, lineWidth, heightLine], 'String', dict('db_Folder_name'));
+    vr.FolderName = dict('db_Folder_name'); % the default folder name will be the last one
+    set(textboxHandle, 'Callback', @NameOfSesseionCallback);
+
+    % Define the callback function for the textbox
+    function NameOfSesseionCallback(source, event)
+        vr.FolderName = get(textboxHandle, 'String');
+        % Perform actions with the new text as needed
+        disp(['New text: ', vr.FolderName]);
+    end
 
     % Create a button to display the selected option from the dropdown list
     paddingBottom = 50;
@@ -245,6 +256,7 @@ end
         vr.percentageThresholdBig = round(get(sliderPercentageThresholdBig, 'Value'));
         %amount of trials
         vr.amountTrials = round(get(sliderAmountTrials, 'Value'));
+    
         %we want to continue to run
         vr.isSessionRun = true;
         %close(fig);

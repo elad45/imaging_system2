@@ -9,7 +9,7 @@ function vr = giveReward(vr)
     vr.ao.queueOutputData([zero_data_digital zero_data_digital zero_data_digital]);
 
     startBackground(vr.ao);
-
-    fwrite(vr.fid3, [timestampCol(1) 1],'double');
-    fwrite(vr.fid3, [timestampCol(1)+vr.currentRewardDuration/1000 1],'double');
+    
+    fwrite(vr.fid3, [timestampCol(1) timestampCol(1)+vr.currentRewardDuration/1000 vr.countTrials vr.currentRewardDuration],'double');
+%     fwrite(vr.fid3, [timestampCol(1)+vr.currentRewardDuration/1000 1],'double');
 end

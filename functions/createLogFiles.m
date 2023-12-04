@@ -2,7 +2,7 @@ function vr = createLogFiles(vr)
     % open or create binary file for writing and store its file ID in vr
     timestampForFileName = datestr(clock);
     logPath = strcat(pwd,'\ViRMEn 2016-02-12\log');
-    vr.sessionFolder = fullfile(logPath, erase(timestampForFileName,":"));
+    vr.sessionFolder = strcat(fullfile(logPath, erase(timestampForFileName,":"))," ", vr.FolderName);
     mkdir(vr.sessionFolder);
     %vr.nameOfLogFileVel = "C:\Users\user\Desktop\imaging_system\log\" + erase(timestampForFileName+"velocity.dat",":");
     vr.nameOfLogFileVel = fullfile(vr.sessionFolder,vr.velocityDataFile);
@@ -21,6 +21,9 @@ function vr = createLogFiles(vr)
     vr.nameOfLogFileTrials = fullfile(vr.sessionFolder,vr.TrialTimelineFile);
     vr.fid5 = fopen(vr.nameOfLogFileTrials,'w');
     %vr.nameOfLogFileConfigTest = "C:\Users\user\Desktop\imaging_system\log\" + erase(timestampForFileName+"config.json",":");
+    
+    vr.nameOfLogFileSoundGiven = fullfile(vr.sessionFolder,vr.SoundGivenFile);
+    vr.fid6 = fopen(vr.nameOfLogFileSoundGiven,'w');
     %it saves the config here
     vr.configFileInSession = fullfile(vr.sessionFolder,vr.configDataFile);
 

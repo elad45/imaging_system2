@@ -18,6 +18,7 @@ function vr = isExistsDefaultConfig(vr)
         vr.allowedDeviation = str2double("16");
         vr.targetSpeed = str2double("31");
         vr.DeviationBetweenSteps = str2double("16");
+        vr.FolderName = "";
         %save the file
         saveConfigFile(vr,vr.configToLoadOnGui);
     end

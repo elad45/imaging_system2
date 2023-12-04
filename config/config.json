@@ -1,27 +1,29 @@
 {
-  "db_amount_trials": "110",
+  "db_amount_trials": "200",
 
   "db_threshold_open_valve_small": "0",
 
   "db_threshold_open_valve_big": "0",
 
-  "db_reward_duration_small": "56",
+  "db_reward_duration_small": "7",
 
-  "db_reward_duration_big": "35",
+  "db_reward_duration_big": "18",
 
   "db_sound_option": "1",
 
-  "db_world_option": "3",
+  "db_world_option": "1",
 
-  "db_distance_to_run": "180",
+  "db_distance_to_run": "40",
 
   "db_leakport_room_break": "2",
 
   "db_black_room_break": "2",
 
-  "db_sound_deviation_in_range": "61",
+  "db_sound_deviation_in_range": "60",
 
-  "db_target_speed": "46",
+  "db_target_speed": "50",
 
-  "db_sound_deviation_out_range": "30"
+  "db_sound_deviation_out_range": "60",
+
+  "db_Folder_name": "fffgcvc"
 }

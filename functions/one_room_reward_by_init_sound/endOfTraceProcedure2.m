@@ -2,7 +2,13 @@ function vr = endOfTraceProcedure2(vr)
     global timeUntilCoolOffRoom;
     global dataFromDAQ;
     %1 for switching to black room and 2 for jumping back to start
-    timestampCol = dataFromDAQ(:,4);
+    try
+        timestampCol = dataFromDAQ(:,5);
+    catch ME
+        disp(['Error: ' ME.message]);
+        timestampCol = dataFromDAQ(:,4);
+
+    end
     vr = stopSound(vr);
     
     % Start the timer object   

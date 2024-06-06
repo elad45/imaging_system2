@@ -1,6 +1,6 @@
 function vr = randomizeSoundHint(vr)
-   randomNumber = rand;
-    if (randomNumber < vr.stripesWorldPercentage)
+    randomNumber = vr.big_or_small_vec(vr.countTrials);
+    if (randomNumber == 1)
        desiredFreq = 14000;
     else
        desiredFreq = 8000;

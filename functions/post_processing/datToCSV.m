@@ -1,13 +1,21 @@
 function datToCSV(pathToDirectory)
 
-%     A_B_lickport_fd = fopen(strcat(pathToDirectory, "\A-B_leakport_record.dat")); 
-%     A_B_lickport_data = fread(A_B_lickport_fd,[5 inf], 'double');
-%     A_B_lickport_data = A_B_lickport_data';
-%     columnHeaders1 = {'timestamp', 'A_signal', 'B_signal', 'lickport_signal', 'trial_num'};  
-%     A_B_lickport_Datatable = array2table(A_B_lickport_data, 'VariableNames', columnHeaders1);
-%     writetable(A_B_lickport_Datatable, strcat(pathToDirectory, "\A-B_leakport_record.csv"));
-%     fclose(A_B_lickport_fd);
-
+    A_B_lickport_fd = fopen(strcat(pathToDirectory, "\A-B_leakport_record.dat")); 
+    A_B_lickport_data = fread(A_B_lickport_fd,[5 inf], 'double');
+    A_B_lickport_data = A_B_lickport_data';
+    columnHeaders1 = {'timestamp', 'A_signal', 'B_signal', 'lickport_signal', 'trial_num'};  
+    A_B_lickport_Datatable = array2table(A_B_lickport_data, 'VariableNames', columnHeaders1);
+    writetable(A_B_lickport_Datatable, strcat(pathToDirectory, "\A-B_leakport_record.csv"));
+    fclose(A_B_lickport_fd);
+    
+    Raw_A_B_lickport_fd = fopen(strcat(pathToDirectory, "\Raw_AB_lickport.dat")); 
+    Raw_A_B_lickport_data = fread(Raw_A_B_lickport_fd,[5 inf], 'double');
+    Raw_A_B_lickport_data = Raw_A_B_lickport_data';
+    columnHeaders0 = {'timestamp', 'A_signal', 'B_signal', 'lickport_signal', 'optogenetic_signal'};  
+    Raw_A_B_lickport_Datatable = array2table(Raw_A_B_lickport_data, 'VariableNames', columnHeaders0);
+    writetable(Raw_A_B_lickport_Datatable, strcat(pathToDirectory, "\Raw_A-B_leakport_record.csv"));
+    fclose(Raw_A_B_lickport_fd);
+    
     Reward_fd = fopen(strcat(pathToDirectory, "\Reward.dat"));
     Reward_data = fread(Reward_fd,[4 inf], 'double');
     Reward_data = Reward_data';
@@ -29,9 +37,9 @@ function datToCSV(pathToDirectory)
     fclose(sync_signal_fd);
 
     velocity_fd = fopen(strcat(pathToDirectory, "\velocity.dat"));
-    velocity_data = fread(velocity_fd,[5 inf], 'double');
+    velocity_data = fread(velocity_fd,[6 inf], 'double');
     velocity_data = velocity_data';
-    columnHeaders4 = {'timestamp', 'velocity', 'Avg_velocity', 'lickport_signal', 'trial_num'}; 
+    columnHeaders4 = {'timestamp', 'velocity', 'Avg_velocity', 'lickport_signal', 'position', 'trial_num'}; 
     velocity_data_Datatable = array2table(velocity_data, 'VariableNames', columnHeaders4);
     writetable(velocity_data_Datatable, strcat(pathToDirectory, "\velocity.csv"));
     fclose(velocity_fd);

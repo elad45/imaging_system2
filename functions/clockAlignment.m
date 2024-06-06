@@ -1,8 +1,13 @@
 function vr = clockAlignment(vr, length)
     % Set the desired length of the column
     global dataFromDAQ;
-    timestampCol = dataFromDAQ(:,4);
+    try
+        timestampCol = dataFromDAQ(:,5);
+    catch ME
+        disp(['Error: ' ME.message]);
+        timestampCol = dataFromDAQ(:,4);
 
+    end
     % Generate random sequence lengths
     sequenceLengths = randi([10, 20], length, 1);
 
@@ -19,9 +24,14 @@ function vr = clockAlignment(vr, length)
     randomColumn = randomColumn(1:length);
     zero_data_analog = zeros(length,1);
 
-    %output the data
-    vr.ao.queueOutputData([zero_data_analog randomColumn zero_data_analog]);
-    startBackground(vr.ao);
+    %output the data valve, random signal, valve
+    vr.ao.queueOutputData([zero_data_analog randomColumn zero_data_analog zero_data_analog]);
+    
+    if(vr.ao.IsRunning)
+        disp('IsRunning')
+%         stop(vr.ao);
+    end
+%     startBackground(vr.ao);
     %write to log file
     timecol = cat(1,timestampCol,zeros(length-size(timestampCol,1), 1));
     matrix = [timecol.';randomColumn.'];

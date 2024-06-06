@@ -11,8 +11,14 @@ function vr = calculateAvgSpeed(vr)
     Acol = [dataFromDAQ_Thirdprev(:,1);dataFromDAQ_SecondPrev(:,1);dataFromDAQ_FirstPrev(:,1);dataFromDAQ(:,1)]; % concat buffer with previous ones
     Bcol = [dataFromDAQ_Thirdprev(:,2);dataFromDAQ_SecondPrev(:,2);dataFromDAQ_FirstPrev(:,2);dataFromDAQ(:,2)];
     lickPortCol = dataFromDAQ(:,3);
-    timestampCol = dataFromDAQ(:,4);
-   
+    try
+        timestampCol = dataFromDAQ(:,5);
+    catch ME
+        disp(['Error: ' ME.message]);
+        timestampCol = dataFromDAQ(:,4);
+
+    end
+    
     length = numel(Bcol);
     for i = 2:length
         tmp = Bcol(i-1) + Bcol(i);

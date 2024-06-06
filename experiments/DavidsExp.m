@@ -21,14 +21,13 @@ function vr = initializationCodeFun(vr)
     command = 'start /B cmd /C node "C:\Users\user\Desktop\imaging_system\ViRMEn 2016-02-12\sound_server\serverWeb.js"';
     system(command);
 
-
     vr = initParameters(vr);
     vr = isExistsDefaultConfig(vr);
     vr = miniGUI(vr); % show the GUI for chosing the experiment preferences
+    vr = createLogFiles(vr); % for logging all files
     vr = DAQInit(vr); % data acquisition system
 
     if vr.isSessionRun == true    
-        vr = createLogFiles(vr); % for logging all files
  
         %save config in the session directory
         vr = saveConfigFile(vr,vr.configFileInSession); 
@@ -37,16 +36,18 @@ function vr = initializationCodeFun(vr)
         %calculating & set initial position
         vr.initPosition = vr.endOftheRoad - vr.distanceToRun*vr.velocityScaling;
         vr.position(2) = vr.initPosition;
-        
         vr = timerInit(vr); % start the timers for changing rooms
     
         vr.currentWorld = vr.chessWorld;
+        vr = generate_random_vector(vr);
         vr = randomizeSoundHint(vr);
+        
         vr = clockAlignment(vr,vr.ao.NotifyWhenScansQueuedBelow); % aligment of the other sensors
 
         fwrite(vr.fid5, [0 vr.countTrials vr.currentRewardDuration],'double'); %write to file that we started the first trial
 
         disp(['current trial number:' num2str(vr.countTrials) '\' num2str(vr.amountTrials)]); % show the current trial number
+        vr.c = 0;
     end
 end
 
@@ -55,8 +56,7 @@ end
 
 % --- RUNTIME code: executes on every iteration of the ViRMEn engine.
 function vr = runtimeCodeFun(vr)
-    
-
+    vr.c = vr.c+1;
     %checking position for reward
     if (vr.position(2)>=vr.endOftheRoad)
         vr = endOfTraceProcedure2(vr);

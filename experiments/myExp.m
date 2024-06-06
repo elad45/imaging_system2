@@ -29,7 +29,6 @@ function vr = initializationCodeFun(vr)
 
     if vr.isSessionRun == true    
         vr = createLogFiles(vr); % for logging all files
-        
        
         %save config in the session directory
         vr = saveConfigFile(vr,vr.configFileInSession); 
